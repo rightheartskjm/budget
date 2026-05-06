@@ -9,7 +9,7 @@ export async function GET(req: NextRequest) {
   });
 
   const header = '거래일,유형,카테고리,금액,메모';
-  const csvRows = rows.map((t) =>
+  const csvRows = rows.map((t: { date: string; type: string; category: string; amount: number; memo: string | null }) =>
     [t.date, t.type === 'income' ? '수입' : '지출', t.category, t.amount, `"${t.memo}"`].join(',')
   );
   // UTF-8 BOM — Excel 한글 깨짐 방지
