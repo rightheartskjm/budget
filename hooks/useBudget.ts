@@ -11,10 +11,16 @@ export function useBudget(month?: string) {
 
   const load = useCallback(async () => {
     setLoading(true);
-    const res = await fetch(`/api/budgets?month=${m}`);
-    const data: Budget[] = await res.json();
-    setBudgets(data);
-    setLoading(false);
+    try {
+      const res = await fetch(`/api/budgets?month=${m}`);
+      if (!res.ok) throw new Error(`API error: ${res.status}`);
+      const data: Budget[] = await res.json();
+      setBudgets(data);
+    } catch (e) {
+      console.error('useBudget load error:', e);
+    } finally {
+      setLoading(false);
+    }
   }, [m]);
 
   useEffect(() => { load(); }, [load]);

@@ -11,10 +11,16 @@ export function useTransactions() {
 
   const load = useCallback(async (m: string) => {
     setLoading(true);
-    const res = await fetch(`/api/transactions?month=${m}`);
-    const data: Transaction[] = await res.json();
-    setTransactions(data);
-    setLoading(false);
+    try {
+      const res = await fetch(`/api/transactions?month=${m}`);
+      if (!res.ok) throw new Error(`API error: ${res.status}`);
+      const data: Transaction[] = await res.json();
+      setTransactions(data);
+    } catch (e) {
+      console.error('useTransactions load error:', e);
+    } finally {
+      setLoading(false);
+    }
   }, []);
 
   useEffect(() => {
