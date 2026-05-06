@@ -3,12 +3,17 @@ import { prisma } from '@/lib/prisma';
 import type { Transaction } from '@/types';
 
 export async function GET(req: NextRequest) {
-  const month = req.nextUrl.searchParams.get('month'); // YYYY-MM
-  const rows = await prisma.transaction.findMany({
-    where: month ? { date: { startsWith: month } } : undefined,
-    orderBy: { date: 'desc' },
-  });
-  return NextResponse.json(rows);
+  try {
+    const month = req.nextUrl.searchParams.get('month'); // YYYY-MM
+    const rows = await prisma.transaction.findMany({
+      where: month ? { date: { startsWith: month } } : undefined,
+      orderBy: { date: 'desc' },
+    });
+    return NextResponse.json(rows);
+  } catch (e) {
+    console.error('GET /api/transactions error:', e);
+    return NextResponse.json({ error: 'DB 연결 실패' }, { status: 500 });
+  }
 }
 
 export async function POST(req: NextRequest) {

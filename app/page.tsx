@@ -24,14 +24,24 @@ export default function DashboardPage() {
 
   useEffect(() => {
     async function load() {
-      const months = last6Months();
-      const results = await Promise.all(
-        months.map((m) => fetch(`/api/transactions?month=${m}`).then((r) => r.json() as Promise<Transaction[]>))
-      );
-      const flat: Transaction[] = results.flat();
-      setAll(flat);
-      setCurrent(flat.filter((t) => t.date.startsWith(currentMonth())));
-      setLoading(false);
+      try {
+        const months = last6Months();
+        const results = await Promise.all(
+          months.map((m) =>
+            fetch(`/api/transactions?month=${m}`).then((r) => {
+              if (!r.ok) throw new Error(`API error: ${r.status}`);
+              return r.json() as Promise<Transaction[]>;
+            })
+          )
+        );
+        const flat: Transaction[] = results.flat();
+        setAll(flat);
+        setCurrent(flat.filter((t) => t.date.startsWith(currentMonth())));
+      } catch (e) {
+        console.error('데이터 로드 실패:', e);
+      } finally {
+        setLoading(false);
+      }
     }
     load();
   }, []);
