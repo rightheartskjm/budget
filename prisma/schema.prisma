@@ -1,0 +1,28 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Transaction {
+  id        String   @id @default(uuid())
+  type      String   // "income" | "expense"
+  category  String
+  amount    Int
+  date      String   // YYYY-MM-DD
+  memo      String   @default("")
+  createdAt DateTime @default(now())
+
+  @@index([date])
+}
+
+model Budget {
+  id       Int    @id @default(autoincrement())
+  category String
+  amount   Int
+  month    String // YYYY-MM
+
+  @@unique([category, month])
+}

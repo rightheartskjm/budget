@@ -1,0 +1,43 @@
+{
+  "transactions": [
+    {
+      "type": "expense",
+      "date": "2026-04-22",
+      "category": "식비",
+      "amount": 20000,
+      "memo": "점심값",
+      "id": "b037c9c4-0ace-40d5-bb92-b3050869ad37",
+      "createdAt": "2026-04-22T09:37:26.778Z"
+    },
+    {
+      "type": "income",
+      "date": "2026-04-22",
+      "category": "급여",
+      "amount": 5000000,
+      "memo": "월급",
+      "id": "0d352344-835a-476d-ba6b-1460d89bf925",
+      "createdAt": "2026-04-22T09:38:45.884Z"
+    },
+    {
+      "type": "expense",
+      "date": "2026-04-22",
+      "category": "쇼핑",
+      "amount": 1000000,
+      "memo": "옷값",
+      "id": "c71a212d-fe2d-4e2f-8150-586f087f4beb",
+      "createdAt": "2026-04-22T09:39:15.408Z"
+    }
+  ],
+  "budgets": [
+    {
+      "category": "쇼핑",
+      "amount": 150000,
+      "month": "2026-04"
+    },
+    {
+      "category": "식비",
+      "amount": 200000,
+      "month": "2026-04"
+    }
+  ]
+}
