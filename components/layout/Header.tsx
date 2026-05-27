@@ -22,7 +22,7 @@ export default function Header() {
 
   return (
     <header className="flex items-center justify-between px-4 md:px-6 h-14 border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900">
-      <span className="font-bold text-indigo-600 dark:text-indigo-400 text-lg">💰 가계부</span>
+      <span className="font-bold text-indigo-600 dark:text-indigo-400 text-lg">김정민 가계부</span>
       <button
         onClick={toggle}
         className="p-2 rounded-lg text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
